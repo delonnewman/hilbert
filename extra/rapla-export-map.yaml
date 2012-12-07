@@ -1,0 +1,78 @@
+categories:
+    - key: user-groups
+	  name: user-groups
+	- key: c1
+      name: resources
+      categories:
+        - key: c6
+          name: Building
+        - key: c4
+          name: Behavioral Sciences Bldg
+        - key: c3
+          name: Brogan Hall
+        - key: c9
+          name: Chuuk
+        - key: c11
+          name: CRHS
+        - key: c2
+          name: CTC Ching Hall
+        - key: c5
+          name: Eiben Hall
+        - key: c1
+          name: Henry Hall
+        - key: c7
+          name: Kieffer Hall
+        - key: c10
+          name: TBA
+        - key: c8
+          name: Tredtin Hall
+        - key: c6
+          name: Wesselkamper Science Center
+    - key: c11
+      name: Building Floor
+      categories:
+        - key: c1
+          name: missing
+        - key: c2
+          name: 1
+        - key: c3
+          name: 2
+        - key: c4
+          name: 3
+    - key: c16
+      name: Catalog
+      categories:
+        - key: c1
+          name: 2009U
+        - key: c2
+          name: 2010U
+        - key: c3
+          name: 2011U
+        - key: c4
+          name: 2012U
+    - key: c10
+      name: Classrooms
+    - key: c9
+      name: Course level
+    - key: c12
+      name: Course Section
+    - key: c13
+      name: Course Type
+    - key: c8
+      name: Degree
+    - key: c3
+      name: Department
+    - key: c7
+      name: Division
+    - key: c17
+      name: DNSM Courses
+    - key: c5
+      name: Faculty Rank
+    - key: c1
+      name: Instructional technology
+    - key: c2
+      name: Room setup
+    - key: c14
+      name: Semester
+
+		
