@@ -27,11 +27,12 @@ public class Hilbert {
             try {
                 DataExport data = DataExport.parse(path);
                 //System.out.println(data);
-		for ( String cat : data.categories() ) {
-			System.out.println(cat);
-		}
+				data.resources();
+				/*for ( String res : data.resources() ) {
+					System.out.println(res);
+				}*/
             }
-            catch (IOException e) {
+            catch (Exception e) {
                 System.out.println("Can't read from '" + path + "'");
                 if ( DEBUG ) { e.printStackTrace(); }
             }
