@@ -1,20 +1,18 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hilbert;
 
-import java.io.File;
+import hilbert.rapla.DataExport;
+
 import java.io.IOException;
-import org.apache.commons.io.FileUtils;
-import org.dom4j.dom.DOMDocument;
 
 /**
  *
- * @author delon
+ * @author Delon Newman
  */
 public class Hilbert {
-    private static boolean DEBUG = true;
+    /**
+     * Flag for debug mode
+     */
+    public final static boolean DEBUG = true;
 
     /**
      * @param args the command line arguments
@@ -27,9 +25,11 @@ public class Hilbert {
             String path = args[0];
 
             try {
-                String xml = FileUtils.readFileToString(new File(path));
-                DOMDocument doc = new DOMDocument(xml);
-                System.out.println(doc);
+                DataExport data = DataExport.parse(path);
+                //System.out.println(data);
+		for ( String cat : data.categories() ) {
+			System.out.println(cat);
+		}
             }
             catch (IOException e) {
                 System.out.println("Can't read from '" + path + "'");
