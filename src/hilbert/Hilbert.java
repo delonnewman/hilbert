@@ -1,6 +1,5 @@
 package hilbert;
 
-import hilbert.rapla.DataExport;
 
 import java.io.IOException;
 
@@ -25,12 +24,9 @@ public class Hilbert {
             String path = args[0];
 
             try {
-                DataExport data = DataExport.parse(path);
-                //System.out.println(data);
-				data.resources();
-				/*for ( String res : data.resources() ) {
-					System.out.println(res);
-				}*/
+                RaplaImport data = RaplaImport.parse(path);
+				//data.reservations();
+				ExcelExport.create(data).save("test.xls");
             }
             catch (Exception e) {
                 System.out.println("Can't read from '" + path + "'");
