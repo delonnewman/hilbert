@@ -2,6 +2,7 @@ package hilbert;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -33,18 +34,22 @@ public class ExcelExport {
 		this.sheet    = this.workbook.createSheet();
 	}
 	
-	public static ExcelExport create(RaplaImport data) {
+	public static ExcelExport create(RaplaImport data) throws Exception {
 		return new ExcelExport(data)
 				.writeFields()
 				.build();
 	}
 	
-	private ExcelExport build() {
-		for ( int i = 0; i < data.courses().size(); i++ ) {
-			Row row   = this.sheet.createRow(i + 1);
+	private ExcelExport build() throws Exception {
+		List<Course> courses = data.reservations();
+
+		for ( int i = 0; i < courses.size(); i++ ) {
+			Row    row    = this.sheet.createRow(i + 1);
+			Course course = courses.get(i);
 			
-			Cell cell = row.createCell(0);
-			cell.setCellValue(data.courses().get(i).getName());
+			row.createCell(0).setCellValue(course.getName());
+			row.createCell(4).setCellValue(course.getStartTime());
+			row.createCell(5).setCellValue(course.getEndTime());
 		}
 		
 		return this;

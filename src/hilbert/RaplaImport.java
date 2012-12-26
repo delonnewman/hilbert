@@ -92,22 +92,34 @@ public class RaplaImport {
 			Element elem = (Element) i.next();
 			if ( elem.getName().matches("\\w+_Course_Name") ) {
 				name = elem.getText();
-				System.out.println("Course Name: " + name);
+				//System.out.println("Course Name: " + name);
 			}
 		}
 		
 		return new Course(name, "", "", "", "", "", 0, "");
 	}
 	
-	public List<Element> reservations() {
-		ArrayList<Element> list     = new ArrayList<Element>();
-		Element            elements = this.root.element("reservation");
+	public List<Course> reservations() throws Exception {
+		ArrayList<Course> list     = new ArrayList<Course>();
+		Element            elements = this.root.element("reservations");
 	
-		for ( Iterator i = elements.elementIterator(); i.hasNext(); ) {
-			Element e = (Element) i.next();
-			if ( e.getName().equals("reservation") ) {
-				//System.out.println(e);
-				list.add(e);
+		if ( elements == null ) {
+			throw new Exception("Couldn't retrieve reservations");
+		}
+		else {
+			Element appt;
+			String name, start, end;
+			
+			for ( Iterator i = elements.elementIterator(); i.hasNext(); ) {
+				Element e = (Element) i.next();
+				if ( e.getName().equals("reservation") ) {
+					name  = e.element("defaultReservation").element("name").getText();
+					appt  = e.element("appointment");
+					start = appt.attributeValue("start-time", "");
+					end   = appt.attributeValue("end-time", "");
+					
+					list.add(new Course(name, "", "", "", start, end, 0, ""));
+				}
 			}
 		}
 	

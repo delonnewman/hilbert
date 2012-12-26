@@ -25,7 +25,7 @@ public class Hilbert {
 
             try {
                 RaplaImport data = RaplaImport.parse(path);
-				//data.reservations();
+				data.reservations();
 				ExcelExport.create(data).save("test.xls");
             }
             catch (Exception e) {
