@@ -10,6 +10,10 @@ import org.dom4j.Element;
 
 import org.dom4j.io.SAXReader;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 /**
  *
  * @author Delon Newman
@@ -70,55 +74,37 @@ public class RaplaImport {
 		return resources;
     }
 	
-	public List<Course> courses() {
-		ArrayList<Course> courses = new ArrayList<Course>();
-			
-		for ( Element r : this.resources() ) {
-			for ( String type : courseTypes ) {
-				Element course = r.element(type);
-				if ( course != null ) {
-					courses.add(parseCourse(course));
-				}
-			}
-		}
-		
-		return courses;
-	}
-	
-	private Course parseCourse(Element e) {
-		String name = "";
-		
-		for ( Iterator i = e.elementIterator(); i.hasNext(); ) {
-			Element elem = (Element) i.next();
-			if ( elem.getName().matches("\\w+_Course_Name") ) {
-				name = elem.getText();
-				//System.out.println("Course Name: " + name);
-			}
-		}
-		
-		return new Course(name, "", "", "", "", "", 0, "");
-	}
-	
-	public List<Course> reservations() throws Exception {
+	public List<Course> courses() throws Exception {
 		ArrayList<Course> list     = new ArrayList<Course>();
-		Element            elements = this.root.element("reservations");
+		Element           elements = this.root.element("reservations");
 	
 		if ( elements == null ) {
 			throw new Exception("Couldn't retrieve reservations");
 		}
 		else {
-			Element appt;
+			List appts;
 			String name, start, end;
+			DateTime startDate;
+			
+			DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
 			
 			for ( Iterator i = elements.elementIterator(); i.hasNext(); ) {
 				Element e = (Element) i.next();
 				if ( e.getName().equals("reservation") ) {
 					name  = e.element("defaultReservation").element("name").getText();
-					appt  = e.element("appointment");
-					start = appt.attributeValue("start-time", "");
-					end   = appt.attributeValue("end-time", "");
+					appts = e.elements("appointment");
 					
-					list.add(new Course(name, "", "", "", start, end, 0, ""));
+					Element first = (Element) appts.get(0);
+					start = first.attributeValue("start-time", "");
+					end   = first.attributeValue("end-time", "");
+					
+					StringBuilder sb = new StringBuilder();
+					for ( Iterator j = appts.iterator(); j.hasNext(); ) {
+						Element el = (Element) j.next();
+						sb.append(fmt.parseDateTime(el.attributeValue("start-date", "")).dayOfWeek().getAsShortText().substring(0, 1) + " ");
+					}
+					
+					list.add(new Course(name, "", "", sb.toString(), start, end, 0, ""));
 				}
 			}
 		}

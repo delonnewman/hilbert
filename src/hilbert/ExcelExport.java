@@ -41,13 +41,14 @@ public class ExcelExport {
 	}
 	
 	private ExcelExport build() throws Exception {
-		List<Course> courses = data.reservations();
+		List<Course> courses = data.courses();
 
 		for ( int i = 0; i < courses.size(); i++ ) {
 			Row    row    = this.sheet.createRow(i + 1);
 			Course course = courses.get(i);
 			
 			row.createCell(0).setCellValue(course.getName());
+			row.createCell(3).setCellValue(course.getDays());
 			row.createCell(4).setCellValue(course.getStartTime());
 			row.createCell(5).setCellValue(course.getEndTime());
 		}
