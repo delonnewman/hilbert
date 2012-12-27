@@ -25,7 +25,7 @@ public class Hilbert {
 
             try {
                 RaplaImport data = RaplaImport.parse(path);
-				ExcelExport.create(data).save("test.xls");
+				ExcelExport.create(data).save("out.xls");
             }
             catch (Exception e) {
                 System.out.println("Can't read from '" + path + "'");

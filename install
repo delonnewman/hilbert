@@ -1,0 +1,4 @@
+#!/bin/sh
+perl -e 'mkdir "/usr/lib/hilbert" unless -e "/usr/lib/hilbert"'
+cp -r dist/* /usr/lib/hilbert
+cp bin/hilbert /usr/bin/hilbert
